@@ -1,0 +1,43 @@
+body {
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    color: #fff;
+    font-family: 'Georgia', serif;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.eightball-dashboard {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+
+#magicBall {
+    width: 200px;
+    transition: transform 0.5s;
+}
+
+button {
+    background-color: #6A4C93;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.hidden {
+    display: none;
+}
+
+.mystical-quote {
+    font-size: 20px;
+    margin-top: 15px;
+    font-style: italic;
+}

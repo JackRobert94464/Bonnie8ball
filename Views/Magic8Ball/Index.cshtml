@@ -1,0 +1,26 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Magic 8 Ball Oracle</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <div class="eightball-dashboard">
+        <h1>Magic 8 Ball Oracle</h1>
+        <input type="text" id="questionInput" placeholder="Think of your question..." />
+        <img id="magicBall" src="~/images/magic8ball.png" alt="Magic 8 Ball" />
+        <button id="shakeBtn">🔮 Shake the 8-Ball</button>
+
+        <div id="thinkingMessage" class="hidden">Let the universe think...</div>
+        <div id="answerArea" class="hidden mystical-quote"></div>
+
+        <button id="resetBtn" class="hidden">Ask Again</button>
+    </div>
+
+    <script src="~/js/interactions.js"></script>
+</body>
+</html>

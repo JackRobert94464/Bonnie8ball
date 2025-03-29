@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: magic8ball-dashboard
+  labels:
+    app: magic8ball
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: magic8ball
+  template:
+    metadata:
+      labels:
+        app: magic8ball
+    spec:
+      containers:
+      - name: magic8ball-dashboard
+        image: pipi94464/magic8ball-dashboard:latest
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: magic8ball-service
+spec:
+  type: NodePort
+  selector:
+    app: magic8ball
+  ports:
+  - port: 5000
+    targetPort: 5000
+    nodePort: 30080 # Use any available nodePort (30000-32767)
