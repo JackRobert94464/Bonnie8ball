@@ -25,3 +25,7 @@ build_metadata.AdditionalFiles.CssScope =
 [H:/DevStuff/Bonnie8ball/Views/Magic8Ball/_AnswerPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFnaWM4QmFsbFxfQW5zd2VyUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
+
+[H:/DevStuff/Bonnie8ball/Views/Wisdom/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2lzZG9tXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

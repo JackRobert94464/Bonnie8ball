@@ -1,0 +1,31 @@
+@model List<Magic8BallDashboard.Models.Wisdom>
+@{
+    ViewData["Title"] = "Manage Wisdoms";
+}
+
+<h2>🧠 Add New Wisdom</h2>
+
+<form method="post" asp-action="Add">
+    <input type="text" name="text" placeholder="Enter wisdom..." style="width: 60%;" required />
+    <button type="submit">Add</button>
+</form>
+
+<h3>📜 Wisdom Table</h3>
+
+<table style="margin-top: 20px; width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th style="text-align:left;">#</th>
+            <th style="text-align:left;">Wisdom</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Text</td>
+            </tr>
+        }
+    </tbody>
+</table>

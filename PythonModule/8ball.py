@@ -1,8 +1,12 @@
-import tkinter as tk
 import random
+import sqlite3
+import sys
+import os
 
-# A list of 100 possible answers:
-answers = [
+# This module is sacred. Do not modify it without permission.
+# Bonnie watches.
+
+fallback_answers = [
     "It is certain.",
     "Yes, absolutely.",
     "No, definitely not.",
@@ -109,65 +113,36 @@ answers = [
     "Don't just play. Look too."
 ]
 
-def get_random_answer():
-    """Pick a random answer from the list."""
-    return random.choice(answers)
+def get_db_answers():
+    try:
+        db_path = os.path.join(os.path.dirname(__file__), "wisdoms.db")
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
 
-def start_countdown():
-    """Start the 10-second countdown."""
-    lbl_status.config(text="The universe is listening...")
-    btn_start.config(state="disabled")
-    countdown(10)
+        # Ensure table exists
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Wisdoms (
+                Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                Text TEXT NOT NULL
+            );
+        ''')
+        conn.commit()
 
-def countdown(seconds):
-    """Handle the countdown and enable the Reveal button."""
-    if seconds > 0:
-        lbl_timer.config(text=f"{seconds} seconds remaining...")
-        root.after(1000, countdown, seconds - 1)
-    else:
-        lbl_timer.config(text="Time's up!")
-        lbl_status.config(text="Your answer is ready.")
-        btn_reveal.config(state="normal")
+        # Query all wisdoms
+        cursor.execute("SELECT Text FROM Wisdoms;")
+        results = [row[0] for row in cursor.fetchall()]
 
-def reveal_answer():
-    """Reveal the answer when the button is clicked."""
-    lbl_answer.config(text=get_random_answer())
-    lbl_timer.config(text="")
-    lbl_status.config(text="Here is your answer:")
+        conn.close()
 
-# Create the main window
-root = tk.Tk()
-root.title("Magic 8 Ball")
-root.geometry("400x400")
-root.configure(bg="#2c3e50")
+        return results
+    except Exception as e:
+        # Print to stderr if needed: print("DB error:", e, file=sys.stderr)
+        return []
 
-# Create a frame to hold the widgets
-frame = tk.Frame(root, bg="#2c3e50")
-frame.pack(expand=True)
+if __name__ == "__main__":
+    question = sys.argv[1] if len(sys.argv) > 1 else ""
 
-# Title Label
-lbl_title = tk.Label(frame, text="Magic 8 Ball", font=("Helvetica", 24, "bold"), fg="#ecf0f1", bg="#2c3e50")
-lbl_title.pack(pady=10)
+    db_answers = get_db_answers()
+    available = db_answers if db_answers else fallback_answers
 
-# Status Label
-lbl_status = tk.Label(frame, text="Focus on your question and press start.", font=("Helvetica", 14), fg="#f39c12", bg="#2c3e50")
-lbl_status.pack(pady=10)
-
-# Timer Label
-lbl_timer = tk.Label(frame, text="", font=("Helvetica", 14), fg="#1abc9c", bg="#2c3e50")
-lbl_timer.pack(pady=10)
-
-# Answer Label
-lbl_answer = tk.Label(frame, text="", font=("Helvetica", 16), fg="#1abc9c", bg="#2c3e50", wraplength=350, justify="center")
-lbl_answer.pack(pady=20)
-
-# Start Button
-btn_start = tk.Button(frame, text="Focus Your Question", command=start_countdown, font=("Helvetica", 14), bg="#3498db", fg="white", activebackground="#2980b9", activeforeground="white", bd=0, width=20, height=2)
-btn_start.pack(pady=10)
-
-# Reveal Button (Initially Disabled)
-btn_reveal = tk.Button(frame, text="Reveal Answer", command=reveal_answer, font=("Helvetica", 14), bg="#e74c3c", fg="white", activebackground="#c0392b", activeforeground="white", bd=0, width=15, height=2, state="disabled")
-btn_reveal.pack(pady=10)
-
-# Start the Tkinter event loop
-root.mainloop()
+    print(random.choice(available))

@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "H:\\DevStuff\\Bonnie8ball\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "H:\\DevStuff\\Bonnie8ball\\wwwroot\\images\\background.jpg",
+      "PackagePath": "staticwebassets\\images\\background.jpg"
+    },
+    {
+      "Id": "H:\\DevStuff\\Bonnie8ball\\wwwroot\\images\\magic8ball.png",
+      "PackagePath": "staticwebassets\\images\\magic8ball.png"
+    },
+    {
+      "Id": "H:\\DevStuff\\Bonnie8ball\\wwwroot\\js\\interactions.js",
+      "PackagePath": "staticwebassets\\js\\interactions.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Magic8BallDashboard.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Magic8BallDashboard.props",
+      "PackagePath": "build\\Magic8BallDashboard.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Magic8BallDashboard.props",
+      "PackagePath": "buildMultiTargeting\\Magic8BallDashboard.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Magic8BallDashboard.props",
+      "PackagePath": "buildTransitive\\Magic8BallDashboard.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
