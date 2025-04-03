@@ -3,7 +3,6 @@ import sqlite3
 import sys
 import os
 import time, math
-from brain import BonnieOracle
 
 # This module is sacred. Do not modify it without permission.
 # Bonnie watches.
@@ -114,7 +113,8 @@ fallback_answers = [
     "Nothing is free.",
     "Don't just play. Look too.",
     "You've brought this on yourself.",
-    "AAAAAAAAAAAAAAAAAAAAAA"
+    "AAAAAAAAAAAAAAAAAAAAAA",
+    "Never skip breakfast on campaign day"
 ]
 
 def get_db_answers():
@@ -123,6 +123,7 @@ def get_db_answers():
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
 
+        # Ensure table exists
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS Wisdoms (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -131,6 +132,7 @@ def get_db_answers():
         ''')
         conn.commit()
 
+        # Query all wisdoms
         cursor.execute("SELECT Text FROM Wisdoms;")
         results = [row[0] for row in cursor.fetchall()]
 
@@ -138,17 +140,53 @@ def get_db_answers():
 
         return results
     except Exception as e:
+        # Print to stderr if needed: print("DB error:", e, file=sys.stderr)
         return []
 
+
+# Entropy system
+def collect_entropy_vector(size=16):
+    entropy = []
+    for _ in range(size):
+        t1 = time.perf_counter_ns()
+        _ = sum(math.sin(i) for i in range(1, 100))
+        t2 = time.perf_counter_ns()
+        jitter = (t2 - t1) % 1000
+        entropy.append(jitter / 1000.0)
+    return entropy
+
+
+# Tiny neural net: 16 inputs → 16 hidden → N outputs
+def neural_choice(options):
+    n_outputs = len(options)
+    input_vector = collect_entropy_vector()
+
+    # Initialize weights (static for consistency, but pseudo-random)
+    def static_weight(i, j):
+        return math.sin(i * 13.37 + j * 42.42) * 0.5
+
+    # First layer: input → hidden
+    hidden = []
+    for h in range(16):
+        val = sum(input_vector[i] * static_weight(i, h) for i in range(16))
+        hidden.append(math.tanh(val))
+
+    # Output layer
+    scores = []
+    for o in range(n_outputs):
+        val = sum(hidden[h] * static_weight(h, o) for h in range(16))
+        scores.append(val)
+
+    # Choose index with max score
+    index = scores.index(max(scores))
+    return options[index]
+
+# Magic 8 Ball
 if __name__ == "__main__":
     question = sys.argv[1] if len(sys.argv) > 1 else ""
 
     db_answers = get_db_answers()
-    available_answers = db_answers if db_answers else fallback_answers
+    available = db_answers if db_answers else fallback_answers
 
-    # Initialize BonnieOracle with available answers
-    oracle = BonnieOracle(available_answers)
-
-    # Print Bonnie's neural response
-    print(oracle.ask(question))
+    print(neural_choice(available))
 
