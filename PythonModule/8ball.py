@@ -112,7 +112,8 @@ fallback_answers = [
     "The bigger the wish The longer the delay The grander the consequences.",
     "Nothing is free.",
     "Don't just play. Look too.",
-    "Cậu tự chuốc lấy"
+    "You've brought this on yourself.",
+    "AAAAAAAAAAAAAAAAAAAAAA"
 ]
 
 def get_db_answers():
