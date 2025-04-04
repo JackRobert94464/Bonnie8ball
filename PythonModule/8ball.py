@@ -114,7 +114,8 @@ fallback_answers = [
     "Don't just play. Look too.",
     "You've brought this on yourself.",
     "AAAAAAAAAAAAAAAAAAAAAA",
-    "Never skip breakfast on campaign day"
+    "Never skip breakfast on campaign day",
+    "Do more with less."
 ]
 
 def get_db_answers():
