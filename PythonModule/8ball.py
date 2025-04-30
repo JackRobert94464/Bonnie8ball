@@ -116,7 +116,9 @@ fallback_answers = [
     "AAAAAAAAAAAAAAAAAAAAAA",
     "Never skip breakfast on campaign day",
     "Do more with less.",
-    "Bình tâm"
+    "Bình tâm",
+    "Oh how the lore thickens.",
+    "This. Aint. Random."
 ]
 
 def get_db_answers():
